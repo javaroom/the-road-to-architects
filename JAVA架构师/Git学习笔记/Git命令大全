@@ -1,0 +1,123 @@
+# Git基本命令
+
+1. 对自己的git进行设置：
+
+```shell
+$ git config --global user.name "你的名字或昵称" 
+
+$ git config --global user.email "你的邮箱"
+```
+
+2. 先建仓库，再连接远程的仓库：
+
+```shell
+$ git init  
+$ git remote add origin https://gitee.com/用户个性地址/HelloGitee.git
+```
+
+3. 修改代码，提交：
+
+```shell
+$ git add . #将当前目录所有文件添加到git暂存区 
+
+$ git commit -m "my first commit" #提交并备注提交信息 
+
+$ git push origin master #将本地提交推送到远程仓库
+
+$ git push origin master -f  #强制推到服务器，覆盖服务器上的文件（不推荐）
+```
+
+4. 覆盖本地文件：
+
+```shell
+$ git pull origin master
+```
+
+5. 把远程的代码克隆到本地：
+
+```shell
+$ git clone https://gitee.com/gitee/HelloGitee.git #将远程仓库克隆到本地
+```
+
+6. 如何想要用ssh协议访问，就要配置ssh公钥：
+
+```shell
+ssh-keygen -t rsa -C "xxxxx@xxxxx.com"   # Generating public/private rsa key pair...
+
+cat ~/.ssh/id_rsa.pub # ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC6eNtGpNGwstc....
+```
+
+7. 分支合并：
+
+```shell
+//首先要建立分支，在分支上修改代码
+
+$ git checkout -b iss53
+
+​    Switched to a new branch "iss53"
+```
+
+这相当于：
+
+```shell
+$ git branch iss53
+
+$ git checkout iss53
+```
+
+分支要提交之后再切到主干，用merge来合并：
+
+```shell
+$ git merge hotfix   ：在主干上执行，就是将hotfix分支的代码合并到主干上
+
+$ git branch -d hotfix     合并完之后，删除hotfix
+Deleted branch hotfix (3a0874c).
+```
+
+
+
+# 代码同时上传Github和Gitee
+
+1. 从任意一个服务器上下载代码；
+
+2. 删除GIt默认远程库名称
+
+```shell
+ //git默认远程库名称为origin
+$ git remote rm origin
+```
+
+3. 分别关联Gitee和GitHub并设置名称
+
+```shell
+//关联gitee并设置别名为gitee
+$ git remote add gitee @git/gitee.com:admin/demo.git
+```
+
+4. 推送到远程仓库
+
+```shell
+推送到Gitee
+$ git push gitee master
+
+推送到GitHub
+$ git push github master
+```
+
+5. 可能出现的错误，如果提示拒绝更新，提示先从远程pull再尝试
+
+```shell
+$ git pull github master
+```
+
+6. 推送到github远程仓库
+
+```shell
+$ git push github master
+
+//可能提示push失败这里可以尝试用强制push
+$ git push github master -f
+```
+
+
+
